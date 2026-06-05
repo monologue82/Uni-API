@@ -16,7 +16,7 @@
 
 ---
 
-![License](https://img.shields.io/github/license/monologue82/Uni-API?style=flat-square&color=blue)
+![License](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?style=flat-square&logo=vue.js&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi&logoColor=white)
@@ -268,7 +268,15 @@ python tests/test_integration.py
 
 ## 开源协议
 
-[MIT](LICENSE) © 2026 monologue82
+[AGPL-3.0](LICENSE) © 2026 monologue82
+
+本项目采用 **GNU Affero General Public License v3.0 或更新版本** —— 一个强 copyleft 协议。简单来说：
+
+- 你可以自由使用、修改、再分发本项目代码。
+- 如果你**修改了它并以网络服务形式提供**（含公司内部使用），你必须把修改版的完整对应源码以**同样的协议**公开发布。
+- 未经开源修改版源码，**不允许商业私有化分叉**。
+
+完整法律文本见 [LICENSE](LICENSE)，人话版摘要见 [tl;dr Legal — AGPL-3.0](https://www.tldrlegal.com/license/gnu-affero-general-public-license-v3-agpl-3-0)。
 
 ---
 

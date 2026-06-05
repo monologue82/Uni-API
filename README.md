@@ -16,7 +16,7 @@ Route, proxy, and manage hundreds of AI providers through a single, self-hosted 
 
 ---
 
-![License](https://img.shields.io/github/license/monologue82/Uni-API?style=flat-square&color=blue)
+![License](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?style=flat-square&logo=vue.js&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi&logoColor=white)
@@ -268,7 +268,15 @@ Found a vulnerability? **Please do not file a public issue.** Email `2627641908@
 
 ## License
 
-[MIT](LICENSE) © 2026 monologue82
+[AGPL-3.0](LICENSE) © 2026 monologue82
+
+This project is licensed under the **GNU Affero General Public License v3.0 or later** — a strong copyleft license. In short:
+
+- You can use, modify, and redistribute this code freely.
+- If you modify it and **offer it as a network service** (including internal company use), you must publish the complete corresponding source code of your modified version under the same license.
+- Commercial proprietary forks are not permitted without open-sourcing your changes.
+
+For the full text, see [LICENSE](LICENSE). For the human-readable summary, see [tl;dr Legal — AGPL-3.0](https://www.tldrlegal.com/license/gnu-affero-general-public-license-v3-agpl-3-0).
 
 ---
 
