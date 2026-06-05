@@ -1,0 +1,67 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Virtual envs ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Databases / runtime data ----
+*.db
+*.db-shm
+*.db-wal
+backend/data/
+
+# ---- Secrets ----
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ---- Logs ----
+*.log
+logs/
+
+# ---- Frontend ----
+frontend/dist/
+frontend/node_modules/
+frontend/.vite/
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/coverage/
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Test artifacts ----
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# ---- Build / packaging ----
+build/
+dist/
+out/
