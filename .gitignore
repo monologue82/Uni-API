@@ -46,6 +46,7 @@ frontend/coverage/
 # ---- IDE / Editor ----
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
 *~
