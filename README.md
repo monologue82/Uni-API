@@ -8,9 +8,7 @@
 
 <div align="center">
 
-<img src="logo/logo.png" alt="Uni-API Logo" width="120" />
-
-# Uni-API
+<img src="logo/logo.png" alt="Uni-API" width="320" />
 
 ### A unified API gateway for the AI era.
 
