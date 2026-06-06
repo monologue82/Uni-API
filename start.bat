@@ -28,10 +28,10 @@ echo.
 
 cd /d "%~dp0"
 
-echo [1/2] Starting backend...
-start /b cmd /c "cd /d backend && ..\venv\Scripts\python.exe -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --log-level info"
+echo [1/2] Starting backend (4 workers)...
+start /b cmd /c "cd /d backend && ..\venv\Scripts\python.exe -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level info"
 
-timeout /t 2 /nobreak >nul
+timeout /t 3 /nobreak >nul
 
 echo [2/2] Starting frontend...
 echo.
@@ -40,7 +40,8 @@ call npx vite
 
 echo.
 echo Stopping services...
-taskkill /FI "WINDOWTITLE eq *uvicorn*" /F >nul 2>&1
-taskkill /FI "WINDOWTITLE eq *vite*" /F >nul 2>&1
+:: Kill uvicorn and its worker processes on port 8000
 for /f "tokens=5" %%a in ('netstat -aon ^| findstr :8000 ^| findstr LISTENING') do taskkill /PID %%a /F >nul 2>&1
+:: Kill any remaining vite processes
+taskkill /FI "WINDOWTITLE eq *vite*" /F >nul 2>&1
 echo All services stopped.

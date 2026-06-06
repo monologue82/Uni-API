@@ -8,6 +8,7 @@ from starlette.background import BackgroundTask
 
 from app.core.cache import RouteConfig
 from app.core.http_client import get_http_client
+from app.middleware.access_log import request_id_var
 
 logger = logging.getLogger("uniapi.proxy")
 
@@ -44,6 +45,7 @@ async def proxy_request(
     start_time = time.monotonic()
 
     request_id = _extract_or_generate_request_id(headers)
+    request_id_var.set(request_id)
 
     target_url = _build_url(route.base_url, path, query_params)
     request_headers = _prepare_request_headers(headers, route)
@@ -51,7 +53,7 @@ async def proxy_request(
 
     client = get_http_client()
 
-    logger.debug("Proxy %s [%s] %s → %s", request_id, method, path, target_url)
+    logger.info("Proxy %s [%s] %s → %s", request_id, method, path, target_url)
 
     try:
         req = client.build_request(
@@ -74,7 +76,7 @@ async def proxy_request(
         _log_call, route.id, route.name, method, path, resp.status_code, elapsed, request_id, user
     )
 
-    logger.debug("Proxy done [%s] %s %s → %d (%dms)", request_id, method, target_url, resp.status_code, elapsed)
+    logger.info("Proxy done [%s] %s %s → %d (%dms)", request_id, method, target_url, resp.status_code, elapsed)
 
     return StreamingResponse(
         content=resp.aiter_raw(),

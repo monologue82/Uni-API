@@ -1,10 +1,23 @@
 <template>
-  <router-view v-slot="{ Component }">
+  <SplashScreen v-if="showSplash" @done="onSplashDone" />
+  <router-view v-else v-slot="{ Component }">
     <transition name="page" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import SplashScreen from './components/SplashScreen.vue'
+
+const showSplash = ref(!sessionStorage.getItem('splash_done'))
+
+function onSplashDone() {
+  sessionStorage.setItem('splash_done', '1')
+  showSplash.value = false
+}
+</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');

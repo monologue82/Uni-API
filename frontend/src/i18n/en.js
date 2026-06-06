@@ -4,6 +4,7 @@ export default {
   'nav.routes': 'Routes',
   'nav.logs': 'Logs',
   'nav.apikeys': 'API Keys',
+  'nav.monitoring': 'Monitoring',
 
   // Dashboard
   'dashboard.title': 'Dashboard',
@@ -169,4 +170,29 @@ export default {
   // Common
   'common.changePw': 'Change Password',
   'common.logout': 'Logout',
+
+  // Monitoring
+  'monitoring.title': 'System Monitoring',
+  'monitoring.errorRate': 'Error Rate',
+  'monitoring.avgLatency': 'Avg Latency',
+  'monitoring.connections': 'Connections',
+  'monitoring.memory': 'Memory',
+  'monitoring.requestTrend': 'Request Trend',
+  'monitoring.latencyTrend': 'Latency Trend',
+  'monitoring.noData': 'No data yet',
+  'monitoring.requests': 'Requests',
+  'monitoring.errors': 'Errors',
+  'monitoring.systemResources': 'System Resources',
+  'monitoring.disk': 'Disk',
+  'monitoring.network': 'Network',
+  'monitoring.routeStats': 'Route Statistics',
+  'monitoring.route': 'Route',
+  'monitoring.maxLatency': 'Max Latency',
+  'monitoring.noRoutes': 'No route call records',
+  'monitoring.alerts': 'Alerts',
+  'monitoring.noAlerts': 'All systems normal, no active alerts',
+  'monitoring.uptime': 'Uptime',
+  'monitoring.totalRequests': 'Total Requests',
+  'monitoring.p99Latency': 'P99 Latency',
+  'monitoring.duration': 'Duration',
 }

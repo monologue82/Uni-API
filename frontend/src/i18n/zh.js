@@ -4,6 +4,7 @@ export default {
   'nav.routes': '路由管理',
   'nav.logs': '调用日志',
   'nav.apikeys': 'API 密钥',
+  'nav.monitoring': '系统监控',
 
   // Dashboard
   'dashboard.title': '仪表盘',
@@ -169,4 +170,29 @@ export default {
   // Common
   'common.changePw': '修改密码',
   'common.logout': '退出登录',
+
+  // Monitoring
+  'monitoring.title': '系统监控',
+  'monitoring.errorRate': '错误率',
+  'monitoring.avgLatency': '平均延迟',
+  'monitoring.connections': '活跃连接',
+  'monitoring.memory': '内存',
+  'monitoring.requestTrend': '请求趋势',
+  'monitoring.latencyTrend': '延迟趋势',
+  'monitoring.noData': '暂无数据',
+  'monitoring.requests': '请求',
+  'monitoring.errors': '错误',
+  'monitoring.systemResources': '系统资源',
+  'monitoring.disk': '磁盘',
+  'monitoring.network': '网络',
+  'monitoring.routeStats': '路由统计',
+  'monitoring.route': '路由',
+  'monitoring.maxLatency': '最大延迟',
+  'monitoring.noRoutes': '暂无路由调用记录',
+  'monitoring.alerts': '告警',
+  'monitoring.noAlerts': '系统正常，无活跃告警',
+  'monitoring.uptime': '运行时间',
+  'monitoring.totalRequests': '总请求数',
+  'monitoring.p99Latency': 'P99 延迟',
+  'monitoring.duration': '持续',
 }

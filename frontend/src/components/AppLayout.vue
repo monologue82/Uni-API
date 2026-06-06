@@ -21,6 +21,10 @@
           <i class="fa-solid fa-key"></i>
           <span>{{ t('nav.apikeys') }}</span>
         </router-link>
+        <router-link to="/monitoring" class="nav-item" active-class="active">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>{{ t('nav.monitoring') }}</span>
+        </router-link>
       </nav>
       <div class="sidebar-footer">
         <div class="user-info">
@@ -216,6 +220,7 @@ async function handleChangePassword() {
 .nav-item:nth-child(2) { animation-delay: 140ms; }
 .nav-item:nth-child(3) { animation-delay: 200ms; }
 .nav-item:nth-child(4) { animation-delay: 260ms; }
+.nav-item:nth-child(5) { animation-delay: 320ms; }
 
 .nav-item:hover {
   background: var(--canvas-hover);

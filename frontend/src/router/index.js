@@ -46,6 +46,11 @@ const routes = [
         name: 'ApiKeys',
         component: () => import('../views/ApiKeys.vue'),
       },
+      {
+        path: 'monitoring',
+        name: 'Monitoring',
+        component: () => import('../views/Monitoring.vue'),
+      },
     ],
   },
 ]

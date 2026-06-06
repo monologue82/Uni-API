@@ -11,7 +11,6 @@ class RouteCreate(BaseModel):
     api_key_header: str = "Authorization"
     api_key_prefix: str = "Bearer "
     api_type: str = "custom"
-    model: str = ""
     is_active: bool = True
     timeout: int = Field(default=30, ge=1, le=300)
 
@@ -24,7 +23,6 @@ class RouteUpdate(BaseModel):
     api_key_header: str | None = None
     api_key_prefix: str | None = None
     api_type: str | None = None
-    model: str | None = None
     is_active: bool | None = None
     timeout: int | None = Field(default=None, ge=1, le=300)
 
@@ -37,7 +35,6 @@ class RouteResponse(BaseModel):
     api_key_header: str
     api_key_prefix: str
     api_type: str
-    model: str
     is_active: bool
     timeout: int
     created_at: datetime

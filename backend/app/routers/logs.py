@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
@@ -14,6 +16,7 @@ async def list_logs(
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=50, ge=1, le=1000),
     route_id: int | None = None,
+    today: bool = False,
     db: AsyncSession = Depends(get_db),
     _=Depends(get_current_user),
 ):
@@ -23,6 +26,11 @@ async def list_logs(
     if route_id is not None:
         query = query.where(CallLog.route_id == route_id)
         count_query = count_query.where(CallLog.route_id == route_id)
+
+    if today:
+        start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        query = query.where(CallLog.created_at >= start)
+        count_query = count_query.where(CallLog.created_at >= start)
 
     total = (await db.execute(count_query)).scalar() or 0
 

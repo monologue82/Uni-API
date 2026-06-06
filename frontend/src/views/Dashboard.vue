@@ -71,7 +71,7 @@ onMounted(async () => {
   try {
     const [routesRes, logsRes] = await Promise.all([
       api.get('/api/v1/routes'),
-      api.get('/api/v1/logs?page_size=999'),
+      api.get('/api/v1/logs?page_size=1&today=true'),
     ])
     stats.value.totalRoutes = routesRes.data.total
     stats.value.activeRoutes = routesRes.data.items.filter(r => r.is_active).length
