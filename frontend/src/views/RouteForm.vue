@@ -24,7 +24,9 @@
           <div v-if="selectedPreset" class="format-indicator">
             <span :class="['format-badge', formatClass]">{{ formatLabel }}</span>
             <span class="format-hint">{{ formatHint }}</span>
-            <button type="button" class="clear-preset" @click="clearPreset" title="Clear selection">✕</button>
+            <button type="button" class="clear-preset" @click="clearPreset" title="Clear selection">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
           </div>
 
           <div class="form-group">
@@ -64,6 +66,8 @@
                 :disabled="modelsLoading || !form.api_key"
                 :title="!form.api_key ? t('form.needApiKey') : ''"
               >
+                <i v-if="!modelsLoading" class="fa-solid fa-cloud-arrow-down"></i>
+                <i v-else class="fa-solid fa-spinner fa-spin"></i>
                 {{ modelsLoading ? t('form.fetching') : t('form.fetchModels') }}
               </button>
             </div>
@@ -109,7 +113,7 @@
         <div class="preset-header">
           <h3>{{ t('form.apiType') }} <span v-if="!presetsLoading && !presetsError" class="preset-count">{{ filteredPresets.length }}/{{ apiTypes.length }}</span></h3>
           <div class="preset-search">
-            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input
               v-model="searchQuery"
               :placeholder="t('form.searchPresets')"
@@ -295,19 +299,77 @@ async function fetchModels() {
   modelsLoading.value = true
   modelsError.value = ''
   availableModels.value = []
+  const preset = selectedPreset.value
   try {
-    const res = await api.get(`/api/v1/models/${selectedPreset.value.id}`, {
-      params: { api_key: form.value.api_key },
-    })
-    availableModels.value = res.data.models || []
-    if (availableModels.value.length === 0) {
+    // Try direct API call first (user's own environment)
+    const url = preset.base_url.replace(/\/+$/, '') + preset.models_endpoint
+    const headers = {}
+    if (preset.api_key_header) {
+      headers[preset.api_key_header] = `${preset.api_key_prefix}${form.value.api_key}`
+    }
+    const res = await fetch(url, { headers })
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const data = await res.json()
+    const models = _extractModels(data, preset.models_key)
+    availableModels.value = models
+    if (models.length === 0) {
       modelsError.value = t('form.noModelsFound')
     }
   } catch (e) {
-    modelsError.value = e.response?.data?.detail || t('form.fetchModelsFailed')
+    // CORS or network error — fall back to backend proxy
+    try {
+      const res = await api.get(`/api/v1/models/${preset.id}`, {
+        params: { api_key: form.value.api_key },
+      })
+      availableModels.value = res.data.models || []
+      if (availableModels.value.length === 0) {
+        modelsError.value = t('form.noModelsFound')
+      }
+    } catch (e2) {
+      const detail = e2.response?.data?.detail || ''
+      if (detail.toLowerCase().includes('authentication failed')) {
+        // Show localized auth error; append upstream reason in parentheses if present
+        const match = detail.match(/\((.+)\)\s*$/)
+        modelsError.value = match
+          ? `${t('form.authFailed')} (${match[1]})`
+          : t('form.authFailed')
+      } else {
+        modelsError.value = detail || t('form.fetchModelsFailed')
+      }
+    }
   } finally {
     modelsLoading.value = false
   }
+}
+
+function _extractModels(data, keyPath) {
+  const parts = keyPath.split('.')
+  let current = data
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i]
+    if (part === '*') {
+      if (!Array.isArray(current)) return []
+      const remaining = parts.slice(i + 1).join('.')
+      const results = []
+      for (const item of current) {
+        results.push(...(remaining ? _extractModels(item, remaining) : [String(item)]))
+      }
+      return results
+    }
+    if (current && typeof current === 'object') {
+      current = current[part]
+    } else {
+      return []
+    }
+  }
+  if (Array.isArray(current) && parts.length >= 2) {
+    const field = parts[parts.length - 1]
+    return current
+      .filter(item => item && typeof item === 'object' && item[field])
+      .map(item => item[field])
+      .sort()
+  }
+  return []
 }
 
 async function loadPresets() {
@@ -464,6 +526,11 @@ async function handleSubmit() {
   flex-shrink: 0;
 }
 
+.fetch-btn i {
+  margin-right: 6px;
+  font-size: 12px;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -578,9 +645,10 @@ async function handleSubmit() {
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   position: sticky;
   top: 32px;
-  max-height: calc(100vh - 96px);
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 64px);
   overflow: hidden;
 }
 
@@ -617,6 +685,7 @@ async function handleSubmit() {
   transform: translateY(-50%);
   color: var(--ink-mute);
   pointer-events: none;
+  font-size: 13px;
 }
 
 .search-input {
@@ -642,6 +711,7 @@ async function handleSubmit() {
   gap: 0;
   padding: 12px 20px 0;
   overflow-x: auto;
+  overflow-y: visible;
   scrollbar-width: none;
   -ms-overflow-style: none;
   flex-wrap: wrap;
@@ -767,7 +837,7 @@ async function handleSubmit() {
   .preset-panel {
     width: 100%;
     position: static;
-    max-height: 400px;
+    max-height: none;
   }
 }
 </style>

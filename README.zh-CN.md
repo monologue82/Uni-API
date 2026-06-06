@@ -8,6 +8,8 @@
 
 <div align="center">
 
+<img src="logo/logo.png" alt="Uni-API Logo" width="120" />
+
 # Uni-API
 
 ### 面向 AI 时代的统一 API 网关

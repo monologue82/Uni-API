@@ -68,4 +68,5 @@ async def gateway(
         headers=dict(request.headers),
         query_params=query_params,
         body=body,
+        user=api_key.name,
     )

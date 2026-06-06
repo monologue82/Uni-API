@@ -39,6 +39,7 @@ async def proxy_request(
     headers: dict,
     query_params: str,
     body: bytes,
+    user: str = "",
 ) -> StreamingResponse:
     start_time = time.monotonic()
 
@@ -70,7 +71,7 @@ async def proxy_request(
     _inject_trace_headers(response_headers, request_id, route.name, target_url, elapsed)
 
     bg_log = BackgroundTask(
-        _log_call, route.id, route.name, method, path, resp.status_code, elapsed, request_id
+        _log_call, route.id, route.name, method, path, resp.status_code, elapsed, request_id, user
     )
 
     logger.debug("Proxy done [%s] %s %s → %d (%dms)", request_id, method, target_url, resp.status_code, elapsed)
@@ -160,6 +161,7 @@ async def _log_call(
     status_code: int,
     duration_ms: int,
     request_id: str,
+    user: str = "",
 ):
     try:
         from app.database import async_session_factory
@@ -173,6 +175,7 @@ async def _log_call(
                 path=path[:500],
                 status_code=status_code,
                 duration_ms=duration_ms,
+                user=user,
                 error_message=request_id,
             )
             session.add(log)

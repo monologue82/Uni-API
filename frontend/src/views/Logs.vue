@@ -2,16 +2,23 @@
   <div class="logs-page">
     <div class="page-header">
       <h2 class="page-title">{{ t('logs.title') }}</h2>
-      <button class="btn-secondary btn-sm" @click="loadLogs">{{ t('logs.refresh') }}</button>
+      <button class="btn-secondary btn-sm" @click="loadLogs">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        {{ t('logs.refresh') }}
+      </button>
     </div>
     <div v-if="loading" class="loading">{{ t('logs.loading') }}</div>
-    <div v-else-if="logs.length === 0" class="empty card">{{ t('logs.empty') }}</div>
+    <div v-else-if="logs.length === 0" class="empty card">
+      <i class="fa-solid fa-inbox empty-icon"></i>
+      <p>{{ t('logs.empty') }}</p>
+    </div>
     <div v-else class="table-wrap card" style="padding:0;overflow:hidden;">
       <table class="logs-table">
         <thead>
           <tr>
             <th>{{ t('logs.time') }}</th>
             <th>{{ t('logs.route') }}</th>
+            <th>{{ t('logs.user') }}</th>
             <th>{{ t('logs.method') }}</th>
             <th>{{ t('logs.path') }}</th>
             <th>{{ t('logs.statusCode') }}</th>
@@ -23,6 +30,10 @@
             <td class="cell-time">{{ formatTime(log.created_at) }}</td>
             <td>
               <span class="badge badge-green">{{ log.route_name }}</span>
+            </td>
+            <td>
+              <span v-if="log.user" class="badge badge-blue">{{ log.user }}</span>
+              <span v-else class="cell-dur">-</span>
             </td>
             <td>
               <span :class="['badge', methodBadge(log.method)]">{{ log.method }}</span>
@@ -37,9 +48,15 @@
       </table>
     </div>
     <div v-if="totalPages > 1" class="pagination">
-      <button class="btn-secondary btn-sm" :disabled="page <= 1" @click="page--; loadLogs()">{{ t('logs.prev') }}</button>
+      <button class="btn-secondary btn-sm" :disabled="page <= 1" @click="page--; loadLogs()">
+        <i class="fa-solid fa-chevron-left"></i>
+        {{ t('logs.prev') }}
+      </button>
       <span>{{ t('logs.pageInfo', { page, totalPages, total }) }}</span>
-      <button class="btn-secondary btn-sm" :disabled="page >= totalPages" @click="page++; loadLogs()">{{ t('logs.next') }}</button>
+      <button class="btn-secondary btn-sm" :disabled="page >= totalPages" @click="page++; loadLogs()">
+        {{ t('logs.next') }}
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -108,6 +125,18 @@ function statusBadge(code) {
   padding: 48px;
   color: var(--ink-mute);
   animation: fadeIn 0.4s ease both;
+}
+
+.empty-icon {
+  display: block;
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: var(--hairline);
+}
+
+.btn-secondary i {
+  margin: 0 4px;
+  font-size: 11px;
 }
 
 @keyframes fadeIn {

@@ -2,7 +2,7 @@
   <div class="setup-page">
     <div class="setup-card">
       <div class="setup-header">
-        <span class="setup-icon">🔌</span>
+        <img src="/logo.png" alt="Uni-API" class="setup-logo" />
         <h1>{{ t('setup.title') }}</h1>
         <p>{{ t('setup.subtitle') }}</p>
       </div>
@@ -133,10 +133,12 @@ async function handleSetup() {
   margin-bottom: 24px;
 }
 
-.setup-icon {
-  font-size: 48px;
+.setup-logo {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
   display: block;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
   animation: iconFloat 3s ease-in-out infinite;
 }
 

@@ -12,7 +12,7 @@ router = APIRouter(prefix="/logs", tags=["logs"])
 @router.get("")
 async def list_logs(
     page: int = Query(default=1, ge=1),
-    page_size: int = Query(default=50, ge=1, le=200),
+    page_size: int = Query(default=50, ge=1, le=1000),
     route_id: int | None = None,
     db: AsyncSession = Depends(get_db),
     _=Depends(get_current_user),
@@ -44,6 +44,7 @@ async def list_logs(
                 "path": log.path,
                 "status_code": log.status_code,
                 "duration_ms": log.duration_ms,
+                "user": log.user,
                 "error_message": log.error_message,
                 "created_at": log.created_at.isoformat(),
             }

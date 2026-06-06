@@ -25,11 +25,11 @@
             <div class="key-value">
               <code>{{ showKeys[k.id] ? k.key : maskKey(k.key) }}</code>
               <button class="btn-icon-sm" @click="toggleShowKey(k.id)" :title="showKeys[k.id] ? t('apikeys.hide') : t('apikeys.show')">
-                <svg v-if="!showKeys[k.id]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                <i v-if="!showKeys[k.id]" class="fa-solid fa-eye"></i>
+                <i v-else class="fa-solid fa-eye-slash"></i>
               </button>
               <button class="btn-icon-sm" @click="copyKey(k.key)" :title="t('apikeys.copy')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <i class="fa-solid fa-copy"></i>
               </button>
             </div>
             <p class="key-meta">
@@ -263,6 +263,7 @@ async function deleteKey(key) {
   color: var(--ink-mute);
   cursor: pointer;
   transition: all 0.15s ease;
+  font-size: 13px;
 }
 
 .btn-icon-sm:hover {

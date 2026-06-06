@@ -2,12 +2,19 @@
   <div class="routes-page">
     <div class="page-header">
       <h2 class="page-title">{{ t('routes.title') }}</h2>
-      <router-link to="/routes/add" class="btn-primary">{{ t('routes.addRoute') }}</router-link>
+      <router-link to="/routes/add" class="btn-primary">
+        <i class="fa-solid fa-plus"></i>
+        {{ t('routes.addRoute') }}
+      </router-link>
     </div>
     <div v-if="loading" class="loading">{{ t('routes.loading') }}</div>
     <div v-else-if="routes.length === 0" class="empty card">
+      <i class="fa-solid fa-route empty-icon"></i>
       <p>{{ t('routes.empty') }}</p>
-      <router-link to="/routes/add" class="btn-primary" style="margin-top:16px;display:inline-block;">{{ t('routes.addFirst') }}</router-link>
+      <router-link to="/routes/add" class="btn-primary" style="margin-top:16px;display:inline-block;">
+        <i class="fa-solid fa-plus"></i>
+        {{ t('routes.addFirst') }}
+      </router-link>
     </div>
     <div v-else class="routes-list">
       <div v-for="route in routes" :key="route.id" class="route-card card anim-item">
@@ -24,9 +31,18 @@
             <p class="route-desc">{{ route.description || t('routes.noDesc') }}</p>
           </div>
           <div class="route-actions">
-            <button class="btn-secondary btn-sm" @click="testRoute(route)">{{ t('routes.test') }}</button>
-            <router-link :to="`/routes/${route.id}/edit`" class="btn-secondary btn-sm">{{ t('routes.edit') }}</router-link>
-            <button class="btn-danger btn-sm" @click="confirmDelete(route)">{{ t('routes.delete') }}</button>
+            <button class="btn-secondary btn-sm" @click="testRoute(route)">
+              <i class="fa-solid fa-paper-plane"></i>
+              {{ t('routes.test') }}
+            </button>
+            <router-link :to="`/routes/${route.id}/edit`" class="btn-secondary btn-sm">
+              <i class="fa-solid fa-pen-to-square"></i>
+              {{ t('routes.edit') }}
+            </router-link>
+            <button class="btn-danger btn-sm" @click="confirmDelete(route)">
+              <i class="fa-solid fa-trash"></i>
+              {{ t('routes.delete') }}
+            </button>
           </div>
         </div>
         <div class="route-preview" v-if="route.is_active">
@@ -39,7 +55,9 @@
       <div class="card test-result-card">
         <h4>{{ t('routes.testResult') }}: {{ testTarget }}</h4>
         <div class="test-status" :class="testResult.success ? 'test-ok' : 'test-fail'">
-          {{ testResult.success ? '✅ ' + t('routes.connectSuccess') : '❌ ' + t('routes.connectFail') }}
+          <i v-if="testResult.success" class="fa-solid fa-circle-check"></i>
+          <i v-else class="fa-solid fa-circle-xmark"></i>
+          {{ testResult.success ? t('routes.connectSuccess') : t('routes.connectFail') }}
         </div>
         <p v-if="testResult.status_code">HTTP {{ testResult.status_code }}</p>
         <p>{{ testResult.message }}</p>
@@ -114,6 +132,20 @@ async function confirmDelete(route) {
   padding: 48px;
   color: var(--ink-mute);
   animation: fadeIn 0.4s ease both;
+}
+
+.empty-icon {
+  display: block;
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: var(--hairline);
+}
+
+.btn-primary i,
+.btn-secondary i,
+.btn-danger i {
+  margin-right: 6px;
+  font-size: 12px;
 }
 
 @keyframes fadeIn {

@@ -2,24 +2,23 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="logo">
-        <span class="logo-icon">🔌</span>
-        <span class="logo-text">Uni-API</span>
+        <img src="/logo.png" alt="Uni-API" class="logo-img" />
       </div>
       <nav class="nav">
         <router-link to="/" class="nav-item" exact-active-class="active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          <i class="fa-solid fa-table-cells"></i>
           <span>{{ t('nav.dashboard') }}</span>
         </router-link>
         <router-link to="/routes" class="nav-item" active-class="active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+          <i class="fa-solid fa-route"></i>
           <span>{{ t('nav.routes') }}</span>
         </router-link>
         <router-link to="/logs" class="nav-item" active-class="active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <i class="fa-solid fa-file-lines"></i>
           <span>{{ t('nav.logs') }}</span>
         </router-link>
         <router-link to="/apikeys" class="nav-item" active-class="active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+          <i class="fa-solid fa-key"></i>
           <span>{{ t('nav.apikeys') }}</span>
         </router-link>
       </nav>
@@ -35,10 +34,10 @@
             </transition>
           </button>
           <button class="btn-secondary btn-sm" @click="showPasswordModal = true" :title="t('common.changePw')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <i class="fa-solid fa-lock"></i>
           </button>
           <button class="btn-secondary btn-sm" @click="handleLogout" :title="t('common.logout')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <i class="fa-solid fa-right-from-bracket"></i>
           </button>
         </div>
       </div>
@@ -171,7 +170,6 @@ async function handleChangePassword() {
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   padding: 0 20px 24px;
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -181,14 +179,10 @@ async function handleChangePassword() {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.logo-icon {
-  font-size: 24px;
-}
-
-.logo-text {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
+.logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
 }
 
 .nav {
@@ -210,6 +204,12 @@ async function handleChangePassword() {
   font-size: 14px;
   font-weight: 500;
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nav-item i {
+  font-size: 16px;
+  width: 18px;
+  text-align: center;
 }
 
 .nav-item:nth-child(1) { animation-delay: 80ms; }
@@ -286,6 +286,10 @@ async function handleChangePassword() {
   transition: all 0.2s ease;
   font-size: 11px;
   font-weight: 600;
+}
+
+.btn-secondary.btn-sm i {
+  font-size: 12px;
 }
 
 .btn-icon:hover {

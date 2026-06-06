@@ -51,6 +51,14 @@ async def lifespan(app: FastAPI):
         except Exception:
             pass  # Column already exists
 
+        # Migration: add user column to call_logs if not exists
+        try:
+            await conn.exec_driver_sql(
+                "ALTER TABLE call_logs ADD COLUMN user VARCHAR(100) DEFAULT ''"
+            )
+        except Exception:
+            pass  # Column already exists
+
     logger.info("Database tables created")
 
     async with async_session_factory() as session:

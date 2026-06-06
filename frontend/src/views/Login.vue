@@ -2,7 +2,7 @@
   <div class="login-page">
     <div class="login-card">
       <div class="login-header">
-        <span class="login-icon">🔌</span>
+        <img src="/logo.png" alt="Uni-API" class="login-logo" />
         <h1>{{ t('login.title') }}</h1>
         <p>{{ t('login.subtitle') }}</p>
       </div>
@@ -122,10 +122,12 @@ async function handleLogin() {
   margin-top: 4px;
 }
 
-.login-icon {
-  font-size: 48px;
+.login-logo {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
   display: block;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
   animation: iconFloat 3s ease-in-out infinite;
 }
 

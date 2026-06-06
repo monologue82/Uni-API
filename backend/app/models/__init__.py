@@ -46,6 +46,7 @@ class CallLog(Base):
     path = Column(String(500), nullable=False)
     status_code = Column(Integer, nullable=True)
     duration_ms = Column(Integer, nullable=True)
+    user = Column(String(100), default="")
     error_message = Column(Text, default="")
     created_at = Column(DateTime, server_default=func.now())
 
